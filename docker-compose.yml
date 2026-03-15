@@ -1,0 +1,6 @@
+services:
+  web:
+    image: ${IMAGE_NAME:-jschmitz/vaders-track}:latest
+    ports:
+      - "8081:80"
+    restart: unless-stopped
