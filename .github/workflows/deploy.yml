@@ -187,9 +187,23 @@ jobs:
 
             echo "--- Port 8081 check ---"
             ss -tlnp | grep 8081 || echo "Nothing listening on 8081"
+            echo "--- All listening ports ---"
+            ss -tlnp
+
             echo "--- Stopping existing containers ---"
             docker compose down --remove-orphans || true
             docker rm -f vaders-track-web-1 2>/dev/null || true
+
+            echo "--- Checking port 8081 after compose down ---"
+            ss -tlnp | grep 8081 || echo "Nothing listening on 8081 after compose down"
+
+            echo "--- Any docker container using 8081 ---"
+            docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Ports}}" | grep 8081 || echo "No docker container on 8081"
+
+            echo "--- Force freeing port 8081 ---"
+            fuser -k 8081/tcp 2>/dev/null && echo "Killed process on 8081" || echo "No process to kill on 8081"
+            sleep 1
+            ss -tlnp | grep 8081 || echo "Port 8081 is now free"
 
             echo "--- Pulling latest image ---"
             echo "Image: ${IMAGE_NAME}:latest"
