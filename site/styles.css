@@ -157,6 +157,48 @@ nav .nav-links a.active {
   font-size: 1.1rem;
 }
 
+/* Purpose pillars */
+.purpose-card {
+  background: linear-gradient(135deg, var(--primary), #16213e);
+  border-color: transparent;
+  color: #fff;
+}
+
+.purpose-card h2 {
+  color: var(--accent);
+}
+
+.purpose-pillars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.pillar {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.pillar-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.pillar h3 {
+  color: var(--accent);
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+}
+
+.pillar p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #cdd3de;
+}
+
 /* Meet schedule table */
 table {
   width: 100%;
