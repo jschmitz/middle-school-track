@@ -5,17 +5,19 @@
 }
 
 :root {
-  --primary: #1a1a2e;
-  --accent: #e94560;
-  --bg: #f8f9fa;
+  --primary: #6b1f2a;
+  --primary-dark: #4d1520;
+  --accent: #c4973a;
+  --accent-light: #d4a94a;
+  --bg: #f4f4f4;
   --card-bg: #ffffff;
-  --text: #2d2d2d;
-  --text-light: #6c757d;
-  --border: #dee2e6;
+  --text: #222222;
+  --text-light: #666666;
+  --border: #dddddd;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Georgia", "Times New Roman", serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
@@ -23,53 +25,70 @@ body {
 
 /* Nav */
 nav {
-  background: var(--primary);
-  padding: 1rem;
+  background: var(--primary-dark);
+  padding: 0;
   position: sticky;
   top: 0;
   z-index: 100;
+  border-bottom: 3px solid var(--accent);
 }
 
 nav .nav-inner {
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 0.5rem;
 }
 
 nav .brand {
-  color: var(--accent);
-  font-size: 1.25rem;
+  color: #ffffff;
+  font-size: 1.2rem;
   font-weight: 700;
   text-decoration: none;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+nav .brand:hover {
+  color: var(--accent);
+  background: none;
 }
 
 nav .nav-links {
   display: flex;
-  gap: 0.25rem;
   flex-wrap: wrap;
+  align-items: stretch;
 }
 
 nav a {
-  color: #ccc;
+  color: #e0c8a0;
   text-decoration: none;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
+  padding: 0 0.75rem;
+  display: flex;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  transition: background 0.15s, color 0.15s;
 }
 
-nav a:hover,
-nav a.active {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.1);
+nav .nav-links a:hover,
+nav .nav-links a.active {
+  color: #ffffff;
+  background: var(--primary);
 }
 
 /* Layout */
 .container {
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
@@ -77,41 +96,63 @@ nav a.active {
 /* Hero */
 .hero {
   text-align: center;
-  padding: 3rem 1rem;
-  background: linear-gradient(135deg, var(--primary), #16213e);
+  padding: 4rem 2rem;
+  background: linear-gradient(160deg, var(--primary-dark) 0%, var(--primary) 100%);
   color: #fff;
-  border-radius: 8px;
   margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--accent);
 }
 
 .hero h1 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   margin-bottom: 0.5rem;
+  letter-spacing: 0.02em;
+  font-weight: 700;
 }
 
 .hero .subtitle {
   font-size: 1.1rem;
   color: var(--accent);
   font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 /* Cards */
 .card {
   background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
+  border-top: 4px solid var(--primary);
+  border-radius: 2px;
+  padding: 1.75rem;
+  margin-bottom: 1.75rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .card h2 {
   color: var(--primary);
-  margin-bottom: 1rem;
-  font-size: 1.4rem;
+  margin-bottom: 1.1rem;
+  font-size: 1.45rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
 }
 
 .card h3 {
-  color: var(--accent);
+  color: var(--primary);
   margin: 1rem 0 0.5rem;
   font-size: 1.1rem;
 }
@@ -121,28 +162,37 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 0.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 th {
   background: var(--primary);
   color: #fff;
   text-align: left;
-  padding: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 td {
-  padding: 0.75rem;
+  padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--border);
+  font-size: 0.95rem;
 }
 
-tr:hover {
-  background: #f1f3f5;
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover td {
+  background: #fdf7ed;
 }
 
 /* Practice grid */
 .practice-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1rem;
   margin-top: 1rem;
 }
@@ -151,46 +201,55 @@ tr:hover {
   display: block;
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-left: 4px solid var(--primary);
+  border-radius: 2px;
   padding: 1rem 1.25rem;
   text-decoration: none;
   color: var(--text);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-left-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
 .practice-link:hover {
-  border-color: var(--accent);
-  box-shadow: 0 2px 8px rgba(233, 69, 96, 0.15);
+  border-left-color: var(--accent);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  background: #fffdf8;
 }
 
 .practice-link .num {
-  color: var(--accent);
+  color: var(--primary);
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .practice-link .title {
   font-weight: 600;
-  margin-top: 0.25rem;
+  margin-top: 0.3rem;
+  font-size: 1rem;
 }
 
 /* Practice page */
 .practice-header {
-  border-left: 4px solid var(--accent);
-  padding-left: 1rem;
+  border-left: 5px solid var(--accent);
+  padding-left: 1.25rem;
   margin-bottom: 2rem;
 }
 
 .practice-header .label {
   color: var(--accent);
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .practice-header h1 {
   color: var(--primary);
-  font-size: 1.8rem;
+  font-size: 1.9rem;
+  margin-top: 0.2rem;
 }
 
 .section {
@@ -199,11 +258,13 @@ tr:hover {
 
 .section h2 {
   color: var(--primary);
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  padding-bottom: 0.25rem;
+  font-size: 1.15rem;
+  margin-bottom: 0.6rem;
+  padding-bottom: 0.3rem;
   border-bottom: 2px solid var(--accent);
   display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 ul {
@@ -212,8 +273,10 @@ ul {
 }
 
 .section ul li {
-  padding: 0.4rem 0 0.4rem 1.25rem;
+  padding: 0.4rem 0 0.4rem 1.4rem;
   position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.95rem;
 }
 
 .section ul li::before {
@@ -233,18 +296,29 @@ ul {
 }
 
 .practice-nav a {
-  color: var(--accent);
+  color: var(--primary);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .practice-nav a:hover {
-  text-decoration: underline;
+  color: var(--accent);
 }
 
 /* Info list */
 .info-list li {
-  padding: 0.3rem 0;
+  padding: 0.4rem 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.info-list li:last-child {
+  border-bottom: none;
 }
 
 .info-list strong {
@@ -252,14 +326,19 @@ ul {
 }
 
 /* Responsive */
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .hero h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
   nav .nav-links {
     width: 100%;
     justify-content: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  nav a {
+    padding: 0.6rem 0.5rem;
   }
 
   .practice-grid {
@@ -271,6 +350,6 @@ ul {
   }
 
   td, th {
-    padding: 0.5rem;
+    padding: 0.5rem 0.75rem;
   }
 }
