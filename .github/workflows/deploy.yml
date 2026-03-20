@@ -85,6 +85,50 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
+      - name: Validate SSH key and extract public key
+        run: |
+          echo "======= SSH Key Validation ======="
+
+          KEY="${{ secrets.DROPLET_SSH_KEY }}"
+
+          if [[ -z "$KEY" ]]; then
+            echo "ERROR: DROPLET_SSH_KEY secret is empty or not set"
+            exit 1
+          fi
+
+          echo "Key length   : ${#KEY} chars"
+          echo "Key prefix   : ${KEY:0:30}..."
+
+          # Write key to temp file
+          KEYFILE=$(mktemp)
+          echo "$KEY" > "$KEYFILE"
+          chmod 600 "$KEYFILE"
+
+          # Check header/footer
+          if grep -q "BEGIN" "$KEYFILE"; then
+            echo "Key header   : FOUND ($(grep 'BEGIN' "$KEYFILE"))"
+          else
+            echo "ERROR: Key header (-----BEGIN ...) not found — key may be malformed"
+            exit 1
+          fi
+
+          if grep -q "END" "$KEYFILE"; then
+            echo "Key footer   : FOUND"
+          else
+            echo "ERROR: Key footer (-----END ...) not found — key may be truncated"
+            exit 1
+          fi
+
+          # Extract the public key — this will fail if the private key is wrong/corrupt
+          echo ""
+          echo "Derived public key (add this to droplet ~/.ssh/authorized_keys if missing):"
+          echo "---"
+          ssh-keygen -y -f "$KEYFILE" || echo "ERROR: ssh-keygen could not derive public key — private key may be corrupt or passphrase-protected"
+          echo "---"
+
+          rm -f "$KEYFILE"
+          echo "==================================="
+
       - name: Log deploy context
         run: |
           echo "======= Deploy Context ======="
