@@ -11,14 +11,57 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout source
+        uses: actions/checkout@v4
 
-      - uses: docker/login-action@v3
+      - name: Log build context
+        run: |
+          echo "======= Build Context ======="
+          echo "Commit SHA   : ${{ github.sha }}"
+          echo "Ref          : ${{ github.ref }}"
+          echo "Actor        : ${{ github.actor }}"
+          echo "Repository   : ${{ github.repository }}"
+          echo "Runner OS    : ${{ runner.os }}"
+          echo "Workflow     : ${{ github.workflow }}"
+          echo "Run ID       : ${{ github.run_id }}"
+          echo "Run number   : ${{ github.run_number }}"
+          MASKED_USER="${{ secrets.DOCKERHUB_USERNAME }}"
+          echo "DockerHub user (masked): ${MASKED_USER: -4} (last 4 chars)"
+          IMAGE_TAG="${{ env.IMAGE_NAME }}:${{ github.sha }}"
+          echo "Image tag    : $IMAGE_TAG"
+          echo "============================="
+
+      - name: Log Docker login attempt
+        run: |
+          echo "======= Docker Login ======="
+          echo "Registry     : docker.io (Docker Hub)"
+          MASKED_TOKEN="${{ secrets.DOCKERHUB_TOKEN }}"
+          echo "Token (masked): XXXXXXXXXXXXXX${MASKED_TOKEN: -4}"
+          echo "Attempting login..."
+          echo "============================"
+
+      - name: Docker login
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - uses: docker/build-push-action@v5
+      - name: Log post-login status
+        run: echo "Docker login succeeded."
+
+      - name: Log build and push details
+        run: |
+          echo "======= Docker Build ======="
+          echo "Build context: ."
+          echo "Push enabled : true"
+          echo "Tags:"
+          echo "  - ${{ env.IMAGE_NAME }}:latest"
+          echo "  - ${{ env.IMAGE_NAME }}:${{ github.sha }}"
+          echo "Dockerfile location: ./Dockerfile"
+          echo "============================"
+
+      - name: Build and push image
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: true
@@ -26,11 +69,38 @@ jobs:
             ${{ env.IMAGE_NAME }}:latest
             ${{ env.IMAGE_NAME }}:${{ github.sha }}
 
+      - name: Log post-build status
+        run: |
+          echo "======= Build Complete ======="
+          echo "Image pushed successfully."
+          echo "Tags pushed:"
+          echo "  - ${{ env.IMAGE_NAME }}:latest"
+          echo "  - ${{ env.IMAGE_NAME }}:${{ github.sha }}"
+          echo "=============================="
+
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Log deploy context
+        run: |
+          echo "======= Deploy Context ======="
+          echo "Commit SHA   : ${{ github.sha }}"
+          echo "Image to deploy: ${{ env.IMAGE_NAME }}:latest"
+          MASKED_HOST="${{ secrets.DROPLET_HOST }}"
+          echo "Target host (masked): XXXXXX${MASKED_HOST: -4}"
+          MASKED_USER="${{ secrets.DROPLET_USER }}"
+          echo "SSH user (masked): XX${MASKED_USER: -2}"
+          MASKED_KEY="${{ secrets.DROPLET_SSH_KEY }}"
+          echo "SSH key present  : $([[ -n \"$MASKED_KEY\" ]] && echo YES || echo NO)"
+          echo "SSH key (masked) : XXXXXXXXXXXXXX${MASKED_KEY: -4}"
+          echo "SSH key length   : ${#MASKED_KEY} chars"
+          echo "Deploy path      : /opt/vaders-track"
+          echo "Container port   : 8081 -> 80"
+          echo "=============================="
 
       - name: Deploy to droplet
         uses: appleboy/ssh-action@v1
@@ -39,10 +109,26 @@ jobs:
           username: ${{ secrets.DROPLET_USER }}
           key: ${{ secrets.DROPLET_SSH_KEY }}
           script: |
+            set -e
+
+            echo "======= Remote: Session Info ======="
+            echo "Hostname     : $(hostname)"
+            echo "User         : $(whoami)"
+            echo "Date (UTC)   : $(date -u)"
+            echo "Uptime       : $(uptime)"
+            echo "===================================="
+
+            echo "======= Remote: Disk & Memory ======="
+            df -h /
+            free -h
+            echo "======================================"
+
+            echo "--- Creating deploy directory ---"
             mkdir -p /opt/vaders-track
             cd /opt/vaders-track
+            echo "Working directory: $(pwd)"
 
-            # Write docker-compose.yml
+            echo "--- Writing docker-compose.yml ---"
             cat > docker-compose.yml << 'COMPOSE'
             services:
               web:
@@ -51,7 +137,31 @@ jobs:
                   - "8081:80"
                 restart: unless-stopped
             COMPOSE
+            echo "docker-compose.yml written:"
+            cat docker-compose.yml
 
+            echo "--- Pulling latest image ---"
+            echo "Image: ${{ env.IMAGE_NAME }}:latest"
             docker pull ${{ env.IMAGE_NAME }}:latest
+            echo "Pull complete."
+
+            echo "--- Current running containers (before deploy) ---"
+            docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}" || true
+
+            echo "--- Running docker compose up ---"
             docker compose up -d
+            echo "Compose up complete."
+
+            echo "--- Current running containers (after deploy) ---"
+            docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"
+
+            echo "--- Pruning unused images ---"
             docker image prune -f
+            echo "Prune complete."
+
+            echo "--- Docker image list ---"
+            docker images --format "table {{.Repository}}\t{{.Tag}}\t{{.ID}}\t{{.CreatedAt}}\t{{.Size}}"
+
+            echo "======= Remote: Deploy complete ======="
+            echo "Deployed at: $(date -u)"
+            echo "========================================"
