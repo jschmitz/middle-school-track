@@ -157,6 +157,45 @@ nav .nav-links a.active {
   font-size: 1.1rem;
 }
 
+/* Practice frame */
+.practice-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.frame-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.step-num {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.15rem;
+}
+
+.frame-step strong {
+  color: var(--primary);
+  font-size: 0.95rem;
+}
+
+.frame-step p {
+  margin: 0.1rem 0 0;
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
 /* Purpose pillars */
 .purpose-card {
   background: linear-gradient(135deg, var(--primary), #16213e);
