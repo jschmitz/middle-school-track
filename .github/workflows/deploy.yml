@@ -185,6 +185,12 @@ jobs:
             echo "docker-compose.yml written:"
             cat docker-compose.yml
 
+            echo "--- Port 8081 check ---"
+            ss -tlnp | grep 8081 || echo "Nothing listening on 8081"
+            echo "--- Stopping existing containers ---"
+            docker compose down --remove-orphans || true
+            docker rm -f vaders-track-web-1 2>/dev/null || true
+
             echo "--- Pulling latest image ---"
             echo "Image: ${IMAGE_NAME}:latest"
             docker pull ${IMAGE_NAME}:latest
