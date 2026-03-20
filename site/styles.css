@@ -14,6 +14,20 @@
   --text: #222222;
   --text-light: #666666;
   --border: #dddddd;
+  --nav-height: 52px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* Offset anchor targets so sticky nav doesn't cover them */
+[id] {
+  scroll-margin-top: calc(var(--nav-height) + 12px);
 }
 
 body {
@@ -23,7 +37,7 @@ body {
   line-height: 1.6;
 }
 
-/* Nav */
+/* ─── Nav ─────────────────────────────────────────────── */
 nav {
   background: var(--primary-dark);
   padding: 0;
@@ -31,69 +45,191 @@ nav {
   top: 0;
   z-index: 100;
   border-bottom: 3px solid var(--accent);
+  height: var(--nav-height);
 }
 
 nav .nav-inner {
   max-width: 960px;
+  height: 100%;
   margin: 0 auto;
   display: flex;
   align-items: stretch;
   justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 nav .brand {
   color: #ffffff;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 700;
   text-decoration: none;
-  padding: 1rem 1.25rem;
+  padding: 0 1.25rem;
   display: flex;
   align-items: center;
   letter-spacing: 0.03em;
   text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 nav .brand:hover {
   color: var(--accent);
-  background: none;
 }
 
 nav .nav-links {
   display: flex;
-  flex-wrap: wrap;
   align-items: stretch;
+  flex-shrink: 1;
+  overflow: hidden;
 }
 
-nav a {
+nav .nav-links > a {
   color: #e0c8a0;
   text-decoration: none;
-  padding: 0 0.75rem;
+  padding: 0 0.85rem;
   display: flex;
   align-items: center;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border-right: 1px solid rgba(255,255,255,0.08);
   transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
 }
 
-nav .nav-links a:hover,
-nav .nav-links a.active {
+nav .nav-links > a:hover,
+nav .nav-links > a.active {
   color: #ffffff;
   background: var(--primary);
 }
 
-/* Layout */
+/* ─── Dropdown ───────────────────────────────────────── */
+.nav-dropdown {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+
+.nav-dropdown-trigger {
+  background: none;
+  border: none;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  color: #e0c8a0;
+  cursor: pointer;
+  padding: 0 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+  height: 100%;
+}
+
+.nav-dropdown-trigger:hover,
+.nav-dropdown-trigger.active,
+.nav-dropdown[data-open] .nav-dropdown-trigger {
+  color: #ffffff;
+  background: var(--primary);
+}
+
+.nav-dropdown-arrow {
+  font-size: 0.55rem;
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.nav-dropdown[data-open] .nav-dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 210px;
+  background: var(--primary-dark);
+  border-top: 2px solid var(--accent);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  z-index: 200;
+  flex-direction: column;
+}
+
+.nav-dropdown[data-open] .nav-dropdown-menu {
+  display: flex;
+}
+
+.nav-dropdown-menu a {
+  color: #e0c8a0;
+  text-decoration: none;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  display: block;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.nav-dropdown-menu a:last-child {
+  border-bottom: none;
+}
+
+.nav-dropdown-menu a:hover,
+.nav-dropdown-menu a.current-practice {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+/* ─── Hamburger ──────────────────────────────────────── */
+.nav-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 1rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #e0c8a0;
+  border-radius: 2px;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.nav-hamburger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-hamburger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.nav-hamburger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ─── Layout ──────────────────────────────────────────── */
 .container {
   max-width: 960px;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
 
-/* Hero */
+/* ─── Hero ────────────────────────────────────────────── */
 .hero {
   text-align: center;
   padding: 4rem 2rem;
@@ -130,7 +266,7 @@ nav .nav-links a.active {
   text-transform: uppercase;
 }
 
-/* Cards */
+/* ─── Cards ───────────────────────────────────────────── */
 .card {
   background: var(--card-bg);
   border-top: 4px solid var(--primary);
@@ -157,7 +293,7 @@ nav .nav-links a.active {
   font-size: 1.1rem;
 }
 
-/* Practice frame */
+/* ─── Practice frame ──────────────────────────────────── */
 .practice-frame {
   display: flex;
   flex-direction: column;
@@ -196,28 +332,29 @@ nav .nav-links a.active {
   color: var(--text-light);
 }
 
-/* Purpose pillars */
+/* ─── Purpose pillars ─────────────────────────────────── */
 .purpose-card {
-  background: linear-gradient(135deg, var(--primary), #16213e);
-  border-color: transparent;
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  border-top-color: var(--accent);
   color: #fff;
 }
 
 .purpose-card h2 {
   color: var(--accent);
+  border-bottom-color: rgba(255,255,255,0.15);
 }
 
 .purpose-pillars {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
+  gap: 1.25rem;
   margin-top: 0.5rem;
 }
 
 .pillar {
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
   padding: 1.25rem;
 }
 
@@ -233,12 +370,12 @@ nav .nav-links a.active {
 }
 
 .pillar p {
-  font-size: 0.9rem;
-  line-height: 1.5;
+  font-size: 0.88rem;
+  line-height: 1.55;
   color: #cdd3de;
 }
 
-/* Meet schedule table */
+/* ─── Meet schedule table ─────────────────────────────── */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -251,7 +388,7 @@ th {
   color: #fff;
   text-align: left;
   padding: 0.75rem 1rem;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -270,7 +407,7 @@ tr:hover td {
   background: #fdf7ed;
 }
 
-/* Practice grid */
+/* ─── Practice grid ───────────────────────────────────── */
 .practice-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -279,7 +416,10 @@ tr:hover td {
 }
 
 .practice-link {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 90px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-left: 4px solid var(--primary);
@@ -299,7 +439,7 @@ tr:hover td {
 .practice-link .num {
   color: var(--primary);
   font-weight: 700;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -307,11 +447,23 @@ tr:hover td {
 
 .practice-link .title {
   font-weight: 600;
-  margin-top: 0.3rem;
+  margin-top: 0.25rem;
   font-size: 1rem;
 }
 
-/* Practice page */
+.practice-link .meta {
+  margin-top: 0.3rem;
+  font-size: 0.78rem;
+  color: var(--text-light);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  transition: color 0.2s;
+}
+
+.practice-link:hover .meta {
+  color: var(--accent);
+}
+
+/* ─── Practice page ───────────────────────────────────── */
 .practice-header {
   border-left: 5px solid var(--accent);
   padding-left: 1.25rem;
@@ -367,7 +519,7 @@ ul {
   left: 0;
 }
 
-/* Prev/Next nav */
+/* ─── Prev/Next nav ───────────────────────────────────── */
 .practice-nav {
   display: flex;
   justify-content: space-between;
@@ -390,7 +542,7 @@ ul {
   color: var(--accent);
 }
 
-/* Info list */
+/* ─── Info list ───────────────────────────────────────── */
 .info-list li {
   padding: 0.4rem 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -406,20 +558,67 @@ ul {
   color: var(--primary);
 }
 
-/* Responsive */
+/* ─── Mobile ──────────────────────────────────────────── */
 @media (max-width: 640px) {
-  .hero h1 {
-    font-size: 2rem;
+  nav {
+    height: auto;
+    min-height: var(--nav-height);
+  }
+
+  nav .nav-inner {
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .nav-hamburger {
+    display: flex;
   }
 
   nav .nav-links {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
     width: 100%;
-    justify-content: center;
     border-top: 1px solid rgba(255,255,255,0.1);
+    overflow: visible;
   }
 
-  nav a {
-    padding: 0.6rem 0.5rem;
+  nav .nav-links.open {
+    display: flex;
+  }
+
+  nav .nav-links > a {
+    padding: 0.85rem 1.25rem;
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    width: 100%;
+  }
+
+  .nav-dropdown {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-dropdown-trigger {
+    width: 100%;
+    padding: 0.85rem 1.25rem;
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    height: auto;
+    justify-content: space-between;
+  }
+
+  .nav-dropdown-menu {
+    position: static;
+    box-shadow: none;
+    border-top: none;
+    border-left: 3px solid var(--accent);
+    margin-left: 1.25rem;
+    min-width: 0;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
   }
 
   .practice-grid {
