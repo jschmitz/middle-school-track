@@ -146,6 +146,32 @@ jobs:
           echo "Container port      : 8081 -> 80"
           echo "=============================="
 
+      - name: Install host nginx config
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          source: deploy/nginx-host.conf
+          target: /tmp/vaders-track-nginx/
+
+      - name: Enable nginx config and reload
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          script: |
+            set -e
+            echo "--- Installing nginx config ---"
+            cp /tmp/vaders-track-nginx/deploy/nginx-host.conf /etc/nginx/sites-available/track.jakeschmitz.com
+            ln -sf /etc/nginx/sites-available/track.jakeschmitz.com /etc/nginx/sites-enabled/track.jakeschmitz.com
+            echo "--- Testing nginx config ---"
+            nginx -t
+            echo "--- Reloading nginx ---"
+            systemctl reload nginx
+            echo "--- nginx reload complete ---"
+
       - name: Deploy to droplet
         uses: appleboy/ssh-action@v1
         with:
