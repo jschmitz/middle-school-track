@@ -193,22 +193,33 @@ jobs:
               ln -sf /etc/nginx/sites-available/runvaders.com /etc/nginx/sites-enabled/runvaders.com
               nginx -t && systemctl reload nginx
 
-              echo "--- Requesting Let's Encrypt certificate ---"
-              certbot certonly --webroot \
-                -w /var/www/certbot \
-                -d runvaders.com \
-                -d www.runvaders.com \
-                --email "$CERTBOT_EMAIL" \
-                --agree-tos \
-                --non-interactive
-              echo "Certificate issued."
+              echo "--- Checking DNS resolves before requesting cert ---"
+              if ! host runvaders.com > /dev/null 2>&1; then
+                echo "WARNING: DNS for runvaders.com is not resolving yet. Skipping cert request."
+                echo "Re-run the workflow after DNS propagates to get the SSL cert."
+              else
+                echo "DNS OK. Requesting Let's Encrypt certificate ---"
+                certbot certonly --webroot \
+                  -w /var/www/certbot \
+                  -d runvaders.com \
+                  -d www.runvaders.com \
+                  --email "$CERTBOT_EMAIL" \
+                  --agree-tos \
+                  --non-interactive
+                echo "Certificate issued."
+              fi
             else
               echo "--- Cert exists, checking renewal ---"
               certbot renew --quiet --no-random-sleep-on-renew
             fi
 
-            echo "--- Installing full nginx config (HTTP + HTTPS) ---"
-            cp /tmp/vaders-track-nginx/deploy/nginx-host.conf /etc/nginx/sites-available/runvaders.com
+            echo "--- Installing nginx config ---"
+            if [ -f "$CERT_PATH" ]; then
+              echo "Cert present — installing full HTTPS config"
+              cp /tmp/vaders-track-nginx/deploy/nginx-host.conf /etc/nginx/sites-available/runvaders.com
+            else
+              echo "No cert yet — keeping HTTP-only config until DNS resolves and cert is issued"
+            fi
             ln -sf /etc/nginx/sites-available/runvaders.com /etc/nginx/sites-enabled/runvaders.com
             echo "--- Testing nginx config ---"
             nginx -t
