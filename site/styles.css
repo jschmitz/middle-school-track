@@ -421,6 +421,58 @@ nav .nav-links > a.active {
   color: #cdd3de;
 }
 
+/* ─── Resource items ─────────────────────────────────── */
+.resource-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.resource-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.resource-meta {
+  font-size: 0.72rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-light);
+  margin-bottom: 0.2rem;
+}
+
+.resource-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.35rem;
+}
+
+.resource-desc {
+  font-size: 0.9rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  margin-bottom: 0.6rem;
+  line-height: 1.55;
+}
+
+.resource-link {
+  display: inline-block;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.resource-link:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
 /* ─── Meet schedule table ─────────────────────────────── */
 table {
   width: 100%;
