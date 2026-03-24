@@ -747,6 +747,19 @@ ul {
   gap: 0.5rem;
 }
 
+.warmup-section-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-light);
+  margin: 1.25rem 0 0.5rem;
+}
+
+.warmup-section-label:first-of-type {
+  margin-top: 0;
+}
+
 .warmup-list li {
   background: #f7f8fa;
   border: 1px solid #eaecf0;
