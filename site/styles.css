@@ -737,6 +737,25 @@ ul {
   color: var(--primary);
 }
 
+/* ─── Warm-up list ───────────────────────────────────── */
+.warmup-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.5rem;
+}
+
+.warmup-list li {
+  background: #f7f8fa;
+  border: 1px solid #eaecf0;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
 /* ─── Mobile ──────────────────────────────────────────── */
 @media (max-width: 640px) {
   nav {
