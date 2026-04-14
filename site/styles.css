@@ -784,15 +784,15 @@ ul {
 
 .meet-detail-badge {
   display: inline-block;
-  font-size: 0.65rem;
-  font-weight: 700;
+  font-size: 0.7rem;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   color: var(--primary-dark);
   background: var(--accent);
-  padding: 0.2rem 0.65rem;
-  border-radius: 3px;
-  margin-bottom: 0.65rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 2px;
+  margin-bottom: 0.75rem;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
@@ -849,56 +849,41 @@ ul {
 }
 
 .meet-events-label {
-  font-size: 0.7rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-light);
+  color: var(--primary);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  margin-bottom: 0.875rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
 }
 
 .meet-events-list {
-  list-style: none;
-  padding: 0;
+  list-style: decimal;
+  padding-left: 1.5rem;
   margin: 0;
-  counter-reset: event-counter;
 }
 
 .meet-events-list li {
-  counter-increment: event-counter;
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-  padding: 0.6rem 0;
+  padding: 0.35rem 0;
   border-bottom: 1px solid #f0f0f0;
+  font-size: 0.95rem;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
 }
 
 .meet-events-list li:last-child {
   border-bottom: none;
 }
 
-.meet-events-list li::before {
-  content: counter(event-counter);
-  font-size: 0.7rem;
+.meet-events-list li::marker {
   font-weight: 700;
   color: var(--accent);
-  min-width: 1rem;
-  text-align: right;
-  flex-shrink: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-.event-name {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text);
-  flex: 1;
 }
 
 .event-concurrent {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--text-light);
   font-style: italic;
 }
