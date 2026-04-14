@@ -825,31 +825,41 @@ ul {
   gap: 1.5rem;
 }
 
-.meet-section-title {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-light);
-  margin-bottom: 0.75rem;
-}
 
 .meet-venues {
   display: flex;
-  gap: 0.75rem;
+  gap: 1rem;
   flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .meet-venue {
   flex: 1;
   min-width: 180px;
-  border-left: 3px solid var(--accent);
-  padding: 0.5rem 0.875rem;
+  background: #f7f8fa;
+  border-radius: 6px;
+  border-top: 3px solid var(--accent);
+  padding: 1rem 1.125rem;
+}
+
+.meet-venue--track {
+  flex: 2;
+  min-width: 260px;
+}
+
+.meet-venue-side {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .meet-venue-label {
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--primary);
   margin-bottom: 0.2rem;
@@ -860,6 +870,17 @@ ul {
   color: var(--text-light);
   line-height: 1.45;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  margin-bottom: 0.875rem;
+}
+
+.meet-venue-note {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-style: italic;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 0.625rem;
 }
 
 .meet-events-list {
