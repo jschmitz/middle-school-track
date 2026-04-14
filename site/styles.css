@@ -771,33 +771,34 @@ ul {
 
 /* ─── Meet detail ────────────────────────────────────── */
 .meet-detail-card {
-  border-radius: 6px;
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
   margin-bottom: 2rem;
 }
 
 .meet-detail-banner {
   background: var(--primary-dark);
-  padding: 1.5rem 1.75rem;
+  padding: 1.75rem 2rem;
 }
 
 .meet-detail-badge {
   display: inline-block;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--primary-dark);
   background: var(--accent);
-  padding: 0.2rem 0.6rem;
+  padding: 0.2rem 0.65rem;
   border-radius: 3px;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.65rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .meet-detail-title {
   color: #ffffff;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   margin: 0 0 0.75rem;
   font-family: "Georgia", serif;
 }
@@ -805,82 +806,70 @@ ul {
 .meet-detail-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem 0;
   align-items: center;
-  font-size: 0.875rem;
-  color: rgba(255,255,255,0.7);
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.65);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .meet-detail-dot {
   margin: 0 0.5rem;
   color: var(--accent);
+  opacity: 0.7;
 }
 
 .meet-detail-body {
   background: var(--card-bg);
-  padding: 1.5rem 1.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  padding: 0;
 }
 
-
-.meet-venues {
+/* Location strip */
+.meet-locations {
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  align-items: flex-start;
+  border-bottom: 1px solid #eaecf0;
 }
 
-.meet-venue {
+.meet-location {
   flex: 1;
-  min-width: 180px;
-  background: #f7f8fa;
-  border-radius: 6px;
-  border-top: 3px solid var(--accent);
-  padding: 1rem 1.125rem;
+  padding: 1.1rem 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.meet-venue--track {
-  flex: 2;
-  min-width: 260px;
+.meet-location + .meet-location {
+  border-left: 1px solid #eaecf0;
 }
 
-.meet-venue-side {
-  font-size: 0.68rem;
+.meet-location-dir {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.meet-location-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* Events section */
+.meet-events {
+  padding: 1.5rem 2rem;
+}
+
+.meet-events-label {
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--accent);
-  margin-bottom: 0.3rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-.meet-venue-label {
-  font-weight: 700;
-  font-size: 1rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: var(--primary);
-  margin-bottom: 0.2rem;
-}
-
-.meet-venue-location {
-  font-size: 0.875rem;
   color: var(--text-light);
-  line-height: 1.45;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   margin-bottom: 0.875rem;
-}
-
-.meet-venue-note {
-  margin-top: 0.75rem;
-  font-size: 0.8rem;
-  color: var(--text-light);
-  font-style: italic;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  border-top: 1px solid #e0e0e0;
-  padding-top: 0.625rem;
 }
 
 .meet-events-list {
@@ -888,49 +877,53 @@ ul {
   padding: 0;
   margin: 0;
   counter-reset: event-counter;
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
 }
 
 .meet-events-list li {
   counter-increment: event-counter;
   display: flex;
-  align-items: center;
-  gap: 0.875rem;
-  padding: 0.625rem 0.875rem;
-  background: #f7f8fa;
-  border-radius: 5px;
-  font-size: 0.95rem;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #f0f0f0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.meet-events-list li:last-child {
+  border-bottom: none;
 }
 
 .meet-events-list li::before {
   content: counter(event-counter);
+  font-size: 0.7rem;
   font-weight: 700;
-  font-size: 0.75rem;
-  color: var(--primary-dark);
-  background: var(--accent);
-  border-radius: 50%;
-  width: 1.5rem;
-  height: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: var(--accent);
+  min-width: 1rem;
+  text-align: right;
   flex-shrink: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .event-name {
+  font-size: 0.95rem;
   font-weight: 600;
-  flex: 1;
   color: var(--text);
+  flex: 1;
 }
 
 .event-concurrent {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: var(--text-light);
   font-style: italic;
-  white-space: nowrap;
+}
+
+.meet-perimeter-note {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  padding-top: 0.75rem;
+  border-top: 1px solid #f0f0f0;
 }
 
 /* ─── Mobile ──────────────────────────────────────────── */
