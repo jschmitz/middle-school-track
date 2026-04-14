@@ -770,9 +770,48 @@ ul {
 }
 
 /* ─── Meet detail ────────────────────────────────────── */
+.meet-detail-card {
+  border-top: 3px solid var(--accent);
+}
+
+.meet-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.meet-detail-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+
+.meet-detail-title {
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.meet-detail-meta {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.meet-detail-meta-row {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
 .meet-venues {
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   flex-wrap: wrap;
 }
 
@@ -781,20 +820,30 @@ ul {
   min-width: 200px;
   background: #f7f8fa;
   border: 1px solid #eaecf0;
-  border-radius: 6px;
-  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  padding: 0.875rem 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.meet-venue-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  margin-top: 0.1rem;
 }
 
 .meet-venue-label {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.9rem;
   color: var(--primary);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.2rem;
 }
 
 .meet-venue-location {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: var(--text-light);
+  line-height: 1.4;
 }
 
 .meet-events-list {
@@ -807,31 +856,44 @@ ul {
 .meet-events-list li {
   counter-increment: event-counter;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 0.75rem;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
   font-size: 0.95rem;
 }
 
-.meet-events-list li:last-child {
-  border-bottom: none;
+.meet-events-list li:nth-child(odd) {
+  background: #f7f8fa;
 }
 
 .meet-events-list li::before {
   content: counter(event-counter);
   font-weight: 700;
-  color: var(--accent);
-  min-width: 1.25rem;
+  font-size: 0.8rem;
+  color: white;
+  background: var(--accent);
+  border-radius: 50%;
+  width: 1.4rem;
+  height: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .event-name {
   font-weight: 600;
+  flex: 1;
 }
 
-.event-note {
-  font-size: 0.85rem;
+.event-concurrent {
+  font-size: 0.8rem;
   color: var(--text-light);
+  background: #eaecf0;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  white-space: nowrap;
 }
 
 /* ─── Mobile ──────────────────────────────────────────── */
