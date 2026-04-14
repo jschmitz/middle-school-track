@@ -823,43 +823,29 @@ ul {
   padding: 0;
 }
 
-/* Location strip */
-.meet-locations {
-  display: flex;
-  border-bottom: 1px solid #eaecf0;
-}
-
-.meet-location {
-  flex: 1;
-  padding: 1.1rem 1.75rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-.meet-location + .meet-location {
-  border-left: 1px solid #eaecf0;
-}
-
-.meet-location-dir {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--accent);
-  white-space: nowrap;
-}
-
-.meet-location-name {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--primary);
-}
-
 /* Events section */
 .meet-events {
   padding: 1.5rem 2rem;
+}
+
+.meet-locations-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.meet-locations-inline span {
+  flex: 1;
+  min-width: 180px;
+  background: #f7f8fa;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 5px 5px 0;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary);
 }
 
 .meet-events-label {
