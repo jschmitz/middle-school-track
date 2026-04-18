@@ -80,7 +80,7 @@ nav .nav-links {
   display: flex;
   align-items: stretch;
   flex-shrink: 1;
-  overflow: hidden;
+  overflow: visible;
 }
 
 nav .nav-links > a {
