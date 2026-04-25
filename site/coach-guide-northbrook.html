@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coach Guide: Northbrook Jr High Meet &mdash; Vaders Track</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    .coach-badge {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.2rem 0.65rem;
+      border-radius: 2px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin-bottom: 0.6rem;
+    }
+
+    .callout {
+      border-left: 4px solid var(--accent);
+      background: #fffdf8;
+      padding: 0.875rem 1.1rem;
+      border-radius: 0 4px 4px 0;
+      margin: 0.75rem 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .callout strong {
+      color: var(--primary);
+    }
+
+    .callout.warning {
+      border-left-color: #c0392b;
+      background: #fff5f5;
+    }
+
+    .callout.tip {
+      border-left-color: var(--primary);
+      background: #f5f5ff;
+    }
+
+    .talking-points {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .talking-point {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .tp-icon {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      background: var(--primary-dark);
+      color: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      margin-top: 0.05rem;
+    }
+
+    .tp-body {
+      flex: 1;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.92rem;
+    }
+
+    .tp-body strong {
+      display: block;
+      color: var(--primary);
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .tp-body p {
+      margin: 0;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .relay-diagram {
+      background: #f7f8fa;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.25rem;
+      margin: 0.75rem 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .relay-diagram h4 {
+      color: var(--primary);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.6rem;
+    }
+
+    .relay-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      counter-reset: relay-step;
+    }
+
+    .relay-step {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      counter-increment: relay-step;
+    }
+
+    .relay-step::before {
+      content: counter(relay-step);
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 1.5rem;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-top: 0.1rem;
+    }
+
+    .parent-comm-card {
+      border-top-color: var(--accent);
+      background: #fffdf8;
+    }
+
+    .parent-comm-card h2 {
+      color: var(--accent);
+      border-bottom-color: #f0e0c0;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="brand">Vaders Track</a>
+      <button class="nav-hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#schedule">Practice Schedule</a>
+        <a href="index.html#meets">Meet Schedule</a>
+        <a href="loyola-meet.html">Loyola Meet</a>
+        <a href="resources.html">Resources</a>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Practices <span class="nav-dropdown-arrow">&#9660;</span></button>
+          <div class="nav-dropdown-menu">
+            <a href="practice-1.html">Practice 1 &mdash; Welcome &amp; Baseline</a>
+            <a href="practice-2.html">Practice 2 &mdash; Skips &amp; Skills</a>
+            <a href="practice-3.html">Practice 3 &mdash; Starts &amp; Long Jump</a>
+            <a href="practice-4.html">Practice 4 &mdash; Distance Pacing</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="practice-header">
+      <div class="coach-badge">Coach Guide &mdash; Not for Distribution</div>
+      <h1>Northbrook Jr High Meet</h1>
+      <p class="practice-summary">Notes and prep for coaches heading into the Northbrook Jr High meet. This is a great meet run by welcoming people &mdash; low pressure, high fun. Read through before the meet and brief your athletes and parent volunteers accordingly.</p>
+    </div>
+
+    <!-- ── Meet Overview ──────────────────────────── -->
+    <div class="section">
+      <h2>Meet Overview</h2>
+      <p class="section-note">What to expect and how to set the tone for your athletes.</p>
+      <ul>
+        <li>This is a <strong>local, informal meet</strong> run by genuinely great people. The vibe is welcoming, not cutthroat. Coaches from other schools will help each other out.</li>
+        <li><strong>No registration</strong> &mdash; athletes just show up and run. There&rsquo;s no entry limit, so every athlete who wants to compete in an event can. Let them try things.</li>
+        <li>Athletes can enter <strong>as many events as they want</strong>. For kids who are still figuring out what they like, this is a good meet to experiment. For kids who are tired, help them make smart choices.</li>
+        <li>The atmosphere is great for first-timers. If you have athletes who have never competed before, this is an ideal introduction to a track meet.</li>
+      </ul>
+
+      <div class="callout">
+        <strong>Set expectations with athletes:</strong> &ldquo;This meet is about having fun, trying events, and learning how a track meet works. Every one of you will run well. Cheer for your teammates no matter what.&rdquo;
+      </div>
+    </div>
+
+    <!-- ── Logistics ──────────────────────────────── -->
+    <div class="section">
+      <h2>Logistics &amp; Site Layout</h2>
+      <p class="section-note">The one thing that catches teams off guard at this venue.</p>
+      <ul>
+        <li>The <strong>field events and running events are on opposite sides of a parking lot</strong>. They&rsquo;re close, but athletes need to cross to get between them.</li>
+        <li>Recruit <strong>1&ndash;2 parent volunteers</strong> specifically to help shuttle athletes between the field event area and the track. This is the most useful job at this meet &mdash; someone needs to keep an eye on which events are about to start and make sure the right kids are in the right place.</li>
+        <li>Athletes competing in both field events and running events need to know their schedule and be ready to move quickly. Brief them before the meet starts.</li>
+        <li>The meet moves <strong>faster than you expect</strong> &mdash; it was scheduled for 2 hours and ran closer to 1. If an athlete is hanging out watching instead of warming up, they may miss their event before they realize it.</li>
+      </ul>
+
+      <div class="callout tip">
+        <strong>Volunteer assignment tip:</strong> Give your parking lot shepherds a list of which athletes have events on both sides. They&rsquo;ll know exactly who to watch for when the schedule jumps ahead.
+      </div>
+    </div>
+
+    <!-- ── Pre-Meet Athlete Briefing ──────────────── -->
+    <div class="section">
+      <h2>Pre-Meet Athlete Briefing</h2>
+      <p class="section-note">Run through this with the full group before events start. Keep it quick &mdash; 5 minutes max.</p>
+      <div class="talking-points">
+
+        <div class="talking-point">
+          <div class="tp-icon">&#128161;</div>
+          <div class="tp-body">
+            <strong>Tie your shoes &mdash; double-knot them</strong>
+            <p>This is not a joke. We had an athlete lose a shoe mid-race in the 100m. It was hilarious in hindsight, and a real bummer in the moment. Check your laces before every event. Double-knot. No exceptions.</p>
+          </div>
+        </div>
+
+        <div class="talking-point">
+          <div class="tp-icon">&#127968;</div>
+          <div class="tp-body">
+            <strong>Know where you need to be</strong>
+            <p>Field events and the track are across a parking lot from each other. If your next event is on the other side, start walking before the previous one finishes. Don&rsquo;t wait to be told &mdash; know your schedule.</p>
+          </div>
+        </div>
+
+        <div class="talking-point">
+          <div class="tp-icon">&#127937;</div>
+          <div class="tp-body">
+            <strong>Cheer for your team</strong>
+            <p>When you&rsquo;re not competing, watch your teammates and cheer. A good crowd makes a real difference. This is a team sport even in individual events.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Staggered Starts & Relay Cut-In ────────── -->
+    <div class="section">
+      <h2>Teaching Moment: Staggered Starts &amp; Relay Cut-In</h2>
+      <p class="section-note">Cover this with relay athletes before the meet, ideally at the last practice. These concepts confuse kids every year.</p>
+
+      <h3>Why the Start Looks Uneven</h3>
+      <ul>
+        <li>In races run around a curve (like the 200m and relays), the <strong>outside lanes travel a longer distance</strong> to complete the same arc as the inside lane.</li>
+        <li>To make it fair, athletes in outer lanes start <strong>further ahead</strong>. This is the stagger. Everyone runs the same total distance &mdash; it just doesn&rsquo;t look that way at the start.</li>
+        <li>Reassure athletes: <em>&ldquo;If the runner next to you appears to be ahead, that doesn&rsquo;t mean they&rsquo;re winning. You&rsquo;ll find out where everyone actually stands once you cut in.&rdquo;</em></li>
+      </ul>
+
+      <h3>What &ldquo;Cutting In&rdquo; Means</h3>
+      <ul>
+        <li>After the stagger is used up, there is a designated <strong>break line</strong> where all runners may leave their lanes and move to the inside.</li>
+        <li>The runner who reaches the break line first has the right-of-way to the inside lane. Athletes should not cut in aggressively &mdash; check that there&rsquo;s room before moving in.</li>
+        <li>Once everyone has cut in, the order on the track reflects who is actually winning. This is where athletes often get confused and think they&rsquo;re losing when they&rsquo;re not &mdash; or vice versa.</li>
+      </ul>
+
+      <div class="relay-diagram">
+        <h4>Relay Cut-In: What Athletes Need to Know</h4>
+        <div class="relay-steps">
+          <div class="relay-step">Each runner starts in their assigned lane. The stagger means outer lanes start ahead of inner lanes. This is intentional and correct.</div>
+          <div class="relay-step">After completing the first curve (for most relays), runners reach the break line. Everyone moves to the inside lane in the order they arrive &mdash; do not cut in front of another runner if they&rsquo;re already there.</div>
+          <div class="relay-step">Now the race is in a single-file group on the inside. The order of runners here is the actual race order. Athletes should now know if they are ahead, behind, or racing for position.</div>
+          <div class="relay-step">The baton exchange is timed to this new order. Incoming and outgoing runners need to be on the same page about where the exchange zone starts and how to call &ldquo;stick!&rdquo;</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Common mistake:</strong> After cut-in, an athlete who started in lane 4 sees the lane 1 runner right next to them and panics thinking they&rsquo;re getting passed &mdash; when actually both runners are right where they should be. Walk through this with athletes before the race so they aren&rsquo;t surprised.
+      </div>
+    </div>
+
+    <!-- ── Parent Communication ────────────────────── -->
+    <div class="card parent-comm-card">
+      <h2>&#128226; What to Communicate to Parents</h2>
+      <ul class="info-list">
+        <li><strong>It&rsquo;s a fast meet.</strong> It was scheduled for 2 hours and finished in about 1. Don&rsquo;t show up late expecting to catch your athlete &mdash; their event may already be done.</li>
+        <li><strong>No entry requirements.</strong> Athletes can do as many events as they want. If your athlete wants to try something new, this is the right meet for that.</li>
+        <li><strong>Parking lot crossing.</strong> The field event area and the track are on opposite sides of a parking lot. Stay aware of where your athlete is so they don&rsquo;t miss an event getting back to the track.</li>
+        <li><strong>The vibe is great.</strong> This is one of the most fun, low-key meets of the season. Bring a lawn chair, cheer for everyone, and enjoy it.</li>
+        <li><strong>Shoes.</strong> Make sure your athlete&rsquo;s shoes are tied and double-knotted before every event. (Trust us on this one.)</li>
+      </ul>
+    </div>
+
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
