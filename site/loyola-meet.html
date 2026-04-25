@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loyola Meet &mdash; Vaders Track 2026</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    .meet-hero-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--primary-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.25rem 0.75rem;
+      border-radius: 2px;
+      margin-bottom: 0.75rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .quick-facts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .quick-fact {
+      background: #f7f8fa;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 4px 4px 0;
+      padding: 0.75rem 1rem;
+    }
+
+    .quick-fact-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-light);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin-bottom: 0.2rem;
+    }
+
+    .quick-fact-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--primary);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.4;
+    }
+
+    .action-card {
+      border-top-color: var(--accent);
+      background: #fffdf8;
+    }
+
+    .action-card h2 {
+      color: var(--accent);
+      border-bottom-color: #f0e0c0;
+    }
+
+    .action-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .action-item {
+      display: flex;
+      gap: 0.875rem;
+      align-items: flex-start;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.92rem;
+    }
+
+    .action-icon {
+      flex-shrink: 0;
+      width: 1.75rem;
+      height: 1.75rem;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-top: 0.05rem;
+    }
+
+    .action-text strong {
+      color: var(--primary);
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .action-text p {
+      margin: 0;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .schedule-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 0.5rem;
+    }
+
+    .timeline-block {
+      display: flex;
+      gap: 1.25rem;
+      position: relative;
+    }
+
+    .timeline-block:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 3.1rem;
+      top: 2.5rem;
+      bottom: 0;
+      width: 2px;
+      background: #eee;
+    }
+
+    .timeline-time {
+      flex-shrink: 0;
+      width: 5.5rem;
+      text-align: right;
+      font-size: 0.8rem;
+      font-weight: 700;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--accent);
+      padding-top: 0.85rem;
+      line-height: 1.3;
+    }
+
+    .timeline-dot {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 0.9rem;
+    }
+
+    .timeline-dot-inner {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--primary);
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .timeline-content {
+      flex: 1;
+      padding: 0.75rem 0 1.25rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .timeline-heading {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-detail {
+      font-size: 0.875rem;
+      color: var(--text-light);
+      line-height: 1.55;
+    }
+
+    .timeline-event-list {
+      margin-top: 0.4rem;
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .timeline-event-list li {
+      font-size: 0.875rem;
+      color: var(--text);
+      padding: 0.2rem 0 0.2rem 1rem;
+      position: relative;
+    }
+
+    .timeline-event-list li::before {
+      content: "▸";
+      color: var(--accent);
+      position: absolute;
+      left: 0;
+    }
+
+    .timeline-event-list .event-note {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      font-style: italic;
+    }
+
+    .division-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .division-card {
+      background: #f7f8fa;
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--primary);
+      border-radius: 4px;
+      padding: 1rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .division-card h3 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      margin-bottom: 0.35rem;
+    }
+
+    .division-card p {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .rules-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .rule-item {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .rule-item::before {
+      content: "•";
+      color: var(--accent);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: -0.05rem;
+    }
+
+    .day-of-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .day-of-item {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.9rem;
+    }
+
+    .day-of-item strong {
+      display: block;
+      color: var(--primary);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+
+    .day-of-item p {
+      margin: 0;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .day-of-item.warning p {
+      color: #8b1a1a;
+    }
+
+    .contact-block {
+      display: flex;
+      gap: 0.5rem;
+      flex-direction: column;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.92rem;
+    }
+
+    .contact-block a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+    }
+
+    .contact-block a:hover {
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .results-banner {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--primary-dark);
+      border-radius: 6px;
+      padding: 1.1rem 1.4rem;
+      margin-top: 0.5rem;
+    }
+
+    .results-banner-icon {
+      font-size: 1.75rem;
+    }
+
+    .results-banner-text {
+      flex: 1;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .results-banner-text p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.85rem;
+      margin: 0 0 0.4rem;
+    }
+
+    .results-banner-link {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 0.35rem 0.875rem;
+      border-radius: 3px;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .results-banner-link:hover {
+      background: var(--accent-light);
+    }
+
+    .hurdle-table-wrap {
+      overflow-x: auto;
+      margin-top: 0.75rem;
+    }
+
+    .hurdle-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.875rem;
+    }
+
+    .hurdle-table th {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.5rem 0.875rem;
+      text-align: left;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hurdle-table td {
+      padding: 0.6rem 0.875rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hurdle-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    @media (max-width: 640px) {
+      .timeline-time {
+        width: 4rem;
+        font-size: 0.72rem;
+      }
+      .timeline-block:not(:last-child)::after {
+        left: 2.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="brand">Vaders Track</a>
+      <button class="nav-hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#schedule">Practice Schedule</a>
+        <a href="index.html#meets">Meet Schedule</a>
+        <a href="loyola-meet.html" class="active">Loyola Meet</a>
+        <a href="resources.html">Resources</a>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Practices <span class="nav-dropdown-arrow">&#9660;</span></button>
+          <div class="nav-dropdown-menu">
+            <a href="practice-1.html">Practice 1 &mdash; Welcome &amp; Baseline</a>
+            <a href="practice-2.html">Practice 2 &mdash; Skips &amp; Skills</a>
+            <a href="practice-3.html">Practice 3 &mdash; Starts &amp; Long Jump</a>
+            <a href="practice-4.html">Practice 4 &mdash; Distance Pacing</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="hero">
+      <div class="meet-hero-badge">Meet #2</div>
+      <h1>Loyola Academy Track Meet</h1>
+      <div class="subtitle">Sunday, April 26, 2026</div>
+    </div>
+
+    <!-- Quick facts -->
+    <div class="card">
+      <h2>At a Glance</h2>
+      <div class="quick-facts">
+        <div class="quick-fact">
+          <div class="quick-fact-label">Date</div>
+          <div class="quick-fact-value">Sunday, April 26, 2026</div>
+        </div>
+        <div class="quick-fact">
+          <div class="quick-fact-label">Location</div>
+          <div class="quick-fact-value">Loyola Academy<br>1100 Laramie Ave, Wilmette, IL 60091</div>
+        </div>
+        <div class="quick-fact">
+          <div class="quick-fact-label">Arrive</div>
+          <div class="quick-fact-value">8:30&ndash;9:30 AM<br>Registration on arrival</div>
+        </div>
+        <div class="quick-fact">
+          <div class="quick-fact-label">Field Events</div>
+          <div class="quick-fact-value">10:00 AM</div>
+        </div>
+        <div class="quick-fact">
+          <div class="quick-fact-label">Running Events</div>
+          <div class="quick-fact-value">10:30 AM</div>
+        </div>
+        <div class="quick-fact">
+          <div class="quick-fact-label">Live Results</div>
+          <div class="quick-fact-value"><a href="https://live.athletic.net/meets/65666" target="_blank" rel="noopener" style="color:var(--accent);border-bottom:1px solid var(--accent);text-decoration:none;">AthleticLive &#8599;</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parent to-do items -->
+    <div class="card action-card">
+      <h2>&#128221; Parent Action Items</h2>
+      <div class="action-list">
+        <div class="action-item">
+          <div class="action-icon">1</div>
+          <div class="action-text">
+            <strong>Entries due Friday, April 24 by noon</strong>
+            <p>Entries are submitted on <strong>Athletic.net</strong> by the coaching staff. Each athlete may compete in a maximum of <strong>4 events</strong> (including relays). Make sure your athlete has told the coach their preferred events before the deadline.</p>
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-icon">2</div>
+          <div class="action-text">
+            <strong>Volunteer needed</strong>
+            <p>Each school must provide at least one volunteer to help run the meet. Sign up here:<br>
+            <a href="https://www.signupgenius.com/go/60B0E45A4AF29AA8-63266152-2026" target="_blank" rel="noopener">SignUpGenius &mdash; Loyola Meet Volunteers &#8599;</a></p>
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-icon">3</div>
+          <div class="action-text">
+            <strong>Remind your athlete to listen for their name</strong>
+            <p>If an athlete misses their event, they are scratched &mdash; no exceptions. Athletes must report to the check-in area near the 100m start line as soon as their event is called.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Race schedule -->
+    <div class="card">
+      <h2>Race Day Schedule</h2>
+      <div class="schedule-timeline">
+
+        <div class="timeline-block">
+          <div class="timeline-time">8:30&ndash;9:30 AM</div>
+          <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-heading">Arrive &amp; Registration</div>
+            <div class="timeline-detail">Check in and pick up race packets. Allow extra time for parking.</div>
+          </div>
+        </div>
+
+        <div class="timeline-block">
+          <div class="timeline-time">9:30 AM</div>
+          <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-heading">Coaches Meeting</div>
+          </div>
+        </div>
+
+        <div class="timeline-block">
+          <div class="timeline-time">10:00 AM</div>
+          <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-heading">Field Events Begin</div>
+            <div class="timeline-detail">Order: 4th/JV Girls &rarr; 4th/JV Boys &rarr; Varsity Girls &rarr; Varsity Boys</div>
+            <ul class="timeline-event-list">
+              <li>Turbo Javelin Throw <span class="event-note">(4th/JV only &mdash; 2 attempts)</span></li>
+              <li>Long Jump <span class="event-note">&mdash; 2 runways; 4th/JV Boys &amp; Girls jump simultaneously (2 attempts); Varsity Boys &amp; Girls simultaneously (3 attempts)</span></li>
+              <li>Shot Put <span class="event-note">&mdash; Varsity: 3 attempts, 4kg shot &bull; JV: 2 attempts, 6lb shot</span></li>
+              <li>High Jump</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-block">
+          <div class="timeline-time">10:30 AM</div>
+          <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-heading">Running Events Begin</div>
+            <div class="timeline-detail">Order: 4th/JV Girls &rarr; 4th/JV Boys &rarr; Varsity Girls &rarr; Varsity Boys</div>
+            <ul class="timeline-event-list">
+              <li>100m / 110m Hurdles <span class="event-note">(JV/Varsity Girls, then JV/Varsity Boys)</span></li>
+              <li>100m Dash <span class="event-note">(5 entries per division per gender per school; last 3 heats may use starting blocks)</span></li>
+              <li>1600m Run</li>
+              <li>4&times;100m Relay <span class="event-note">(max 2 teams per school, per division, per gender)</span></li>
+              <li>400m Dash</li>
+              <li>200m Dash <span class="event-note">(5 entries per division per gender per school; last 3 heats may use starting blocks)</span></li>
+              <li>800m Run</li>
+              <li>4&times;400m Relay <span class="event-note">(1 team per school, per division, per gender)</span></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Divisions -->
+    <div class="card">
+      <h2>Divisions</h2>
+      <div class="division-grid">
+        <div class="division-card">
+          <h3>4th Grade</h3>
+          <p>Competes alongside JV athletes but is scored separately. May run up to JV.</p>
+        </div>
+        <div class="division-card">
+          <h3>JV &mdash; 7th Grade &amp; Under</h3>
+          <p>JV athletes may run up to Varsity. Cannot compete in both JV and Varsity in the same event.</p>
+        </div>
+        <div class="division-card">
+          <h3>Varsity &mdash; 8th Grade</h3>
+          <p>Varsity athletes cannot compete in the JV division.</p>
+        </div>
+      </div>
+      <div class="rules-list" style="margin-top:1.25rem;">
+        <div class="rule-item">All races have unlimited entries except the 100m Dash, 200m Dash (5 per division per gender per school), and relay maximums.</div>
+        <div class="rule-item">Awards (medals) go to 1st&ndash;3rd place in each division. Only the top 2 individual finishers and &ldquo;A&rdquo; relay teams from each school are eligible for scoring.</div>
+        <div class="rule-item">Scoring: Individual events &mdash; 10-8-6-5-4-3-2-1. Relays &mdash; 10-8-6-5-4-3-2-1.</div>
+      </div>
+    </div>
+
+    <!-- Day-of info for parents -->
+    <div class="card">
+      <h2>Day-of Information for Parents</h2>
+      <div class="day-of-grid">
+        <div class="day-of-item">
+          <strong>Parking</strong>
+          <p>Parking is available on site. Allow extra time &mdash; the lot fills quickly before the meet.</p>
+        </div>
+        <div class="day-of-item warning">
+          <strong>No Pets</strong>
+          <p>Pets are NOT allowed on campus.</p>
+        </div>
+        <div class="day-of-item">
+          <strong>Field Access</strong>
+          <p>Spectators and non-competing athletes must stay off the infield. Only coaches are permitted on the infield. Stay clear of the finish line area.</p>
+        </div>
+        <div class="day-of-item">
+          <strong>Missed Events</strong>
+          <p>If your athlete misses their event, they are scratched with no recourse. Make sure they are listening for their name and head to the check-in area immediately when their event is called.</p>
+        </div>
+        <div class="day-of-item">
+          <strong>Check-In / Clerking</strong>
+          <p>Running event athletes check in at the clerking area by the <strong>100m start line</strong> once their event is called. Field event athletes check in at the event site.</p>
+        </div>
+        <div class="day-of-item">
+          <strong>Live Results</strong>
+          <p>Follow along at <a href="https://live.athletic.net/meets/65666" target="_blank" rel="noopener">AthleticLive &#8599;</a> during the meet.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hurdle notes -->
+    <div class="card">
+      <h2>Hurdle Notes</h2>
+      <p style="color:var(--text-light); font-size:0.9rem; margin-bottom:1rem; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">Only enter athletes who have practiced hurdles. This is not an event to attempt for the first time at a meet. There are 10 hurdles, all 30 inches high.</p>
+      <div class="hurdle-table-wrap">
+        <table class="hurdle-table">
+          <thead>
+            <tr>
+              <th>Division</th>
+              <th>Distance</th>
+              <th>To First Hurdle</th>
+              <th>Between Hurdles</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Girls (all)</td>
+              <td>100m</td>
+              <td>13 m (42&prime;8&Prime;)</td>
+              <td>8.5 m (27&prime;11&Prime;)</td>
+            </tr>
+            <tr>
+              <td>Boys (all)</td>
+              <td>110m</td>
+              <td>13.72 m (45&prime;0&Prime;)</td>
+              <td>9.14 m (29&prime;11&Prime;)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Live results -->
+    <div class="card">
+      <h2>Live Results</h2>
+      <div class="results-banner">
+        <div class="results-banner-icon">&#127937;</div>
+        <div class="results-banner-text">
+          <p>Results will be posted live during the meet on AthleticLive.</p>
+          <a class="results-banner-link" href="https://live.athletic.net/meets/65666" target="_blank" rel="noopener">View Live Results &#8599;</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Questions -->
+    <div class="card">
+      <h2>Questions</h2>
+      <div class="contact-block">
+        <p>For entries, results, or general meet questions, contact the meet director:</p>
+        <p><strong>Dave Behof</strong> &mdash; Assistant Boys&rsquo; Coach, Loyola Academy</p>
+        <p>Email: <a href="mailto:dbehof@loy.org">dbehof@loy.org</a></p>
+        <p>Phone: <a href="tel:+18479202469">847-920-2469</a></p>
+      </div>
+    </div>
+
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
