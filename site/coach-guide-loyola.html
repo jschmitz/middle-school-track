@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coach Guide: Loyola Meet &mdash; Vaders Track</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    .coach-badge {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.2rem 0.65rem;
+      border-radius: 2px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin-bottom: 0.6rem;
+    }
+
+    .callout {
+      border-left: 4px solid var(--accent);
+      background: #fffdf8;
+      padding: 0.875rem 1.1rem;
+      border-radius: 0 4px 4px 0;
+      margin: 0.75rem 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .callout strong {
+      color: var(--primary);
+    }
+
+    .callout.warning {
+      border-left-color: #c0392b;
+      background: #fff5f5;
+    }
+
+    .callout.critical {
+      border-left-color: #c0392b;
+      background: #fff0f0;
+      border-width: 5px;
+    }
+
+    .callout.critical strong {
+      color: #c0392b;
+      font-size: 1rem;
+    }
+
+    .callout.tip {
+      border-left-color: var(--primary);
+      background: #f5f5ff;
+    }
+
+    .talking-points {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .talking-point {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .tp-icon {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      background: var(--primary-dark);
+      color: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      margin-top: 0.05rem;
+    }
+
+    .tp-body {
+      flex: 1;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.92rem;
+    }
+
+    .tp-body strong {
+      display: block;
+      color: var(--primary);
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .tp-body p {
+      margin: 0;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .gear-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .gear-card {
+      background: #f7f8fa;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .gear-card.critical {
+      border-top: 3px solid #c0392b;
+      background: #fff5f5;
+    }
+
+    .gear-card.important {
+      border-top: 3px solid var(--accent);
+      background: #fffdf5;
+    }
+
+    .gear-card.standard {
+      border-top: 3px solid var(--primary);
+    }
+
+    .gear-card h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+
+    .gear-card.critical h3 { color: #c0392b; }
+    .gear-card.important h3 { color: #a07000; }
+    .gear-card.standard h3 { color: var(--primary); }
+
+    .gear-card p {
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .staff-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .staff-role {
+      background: #f7f8fa;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 4px 4px 0;
+      padding: 0.875rem 1rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .staff-role h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+
+    .staff-role p {
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .schedule-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 0.75rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 540px) {
+      .schedule-compare { grid-template-columns: 1fr; }
+    }
+
+    .compare-col {
+      background: #f7f8fa;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.875rem 1rem;
+    }
+
+    .compare-col h4 {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-light);
+      margin-bottom: 0.6rem;
+    }
+
+    .compare-col ul {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+
+    .compare-col li {
+      margin-bottom: 0.35rem;
+      line-height: 1.5;
+      color: var(--text);
+    }
+
+    .parent-comm-card {
+      border-top-color: var(--accent);
+      background: #fffdf8;
+    }
+
+    .parent-comm-card h2 {
+      color: var(--accent);
+      border-bottom-color: #f0e0c0;
+    }
+
+    .timeline-compact {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 0.5rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .tc-row {
+      display: flex;
+      gap: 1rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    .tc-row:last-child {
+      border-bottom: none;
+    }
+
+    .tc-time {
+      flex-shrink: 0;
+      width: 6rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 0.82rem;
+      padding-top: 0.1rem;
+    }
+
+    .tc-event {
+      flex: 1;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .tc-event strong {
+      color: var(--primary);
+    }
+
+    .tc-event .note {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="brand">Vaders Track</a>
+      <button class="nav-hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#schedule">Practice Schedule</a>
+        <a href="index.html#meets">Meet Schedule</a>
+        <a href="loyola-meet.html">Loyola Meet</a>
+        <a href="resources.html">Resources</a>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Practices <span class="nav-dropdown-arrow">&#9660;</span></button>
+          <div class="nav-dropdown-menu">
+            <a href="practice-1.html">Practice 1 &mdash; Welcome &amp; Baseline</a>
+            <a href="practice-2.html">Practice 2 &mdash; Skips &amp; Skills</a>
+            <a href="practice-3.html">Practice 3 &mdash; Starts &amp; Long Jump</a>
+            <a href="practice-4.html">Practice 4 &mdash; Distance Pacing</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="practice-header">
+      <div class="coach-badge">Coach Guide &mdash; Not for Distribution</div>
+      <h1>Loyola Academy Meet</h1>
+      <p class="practice-summary">This is a long, formal, well-organized meet on a great high school track. It is nothing like the Northbrook Jr High meet &mdash; read this before you go. The day runs 8:30 AM to ~3:30 PM. Plan for it, pack for it, and staff for it accordingly.</p>
+    </div>
+
+    <!-- ── Critical Items ──────────────────────────── -->
+    <div class="section">
+      <h2>Critical: Do Not Forget These</h2>
+      <p class="section-note">These are the things that burned us in 2026. Do not skip this section.</p>
+
+      <div class="callout critical">
+        <strong>BATONS &mdash; Bring Your Own</strong>
+        We borrowed batons at the 2026 meet and nearly did not get to run the relay because of it. That cannot happen again. Own at least 4 batons (one per lane for a relay team). Designate a specific bag or box where they live, check before you leave the school, and check again at the venue. This is a pre-meet checklist item, not an afterthought.
+      </div>
+
+      <div class="callout warning">
+        <strong>Registration is pre-set &mdash; changes are hard</strong>
+        Unlike NBJH, athletes are registered in advance through Athletic.net and the roster is locked (or nearly so) by race day. If an athlete wants to compete, they must be registered before the deadline. Do not assume you can add someone the morning of the meet. Confirm your full entry list at the last practice before the deadline.
+      </div>
+    </div>
+
+    <!-- ── Meet Overview ──────────────────────────── -->
+    <div class="section">
+      <h2>Meet Overview &amp; Tone</h2>
+      <p class="section-note">How this meet is different from what we're used to.</p>
+      <ul>
+        <li>This is a <strong>formal, sanctioned meet</strong> on a real high school track at Loyola Academy. The facilities are excellent. It is run professionally with timers, officials, and structured check-in procedures.</li>
+        <li>Athletes are <strong>registered in advance</strong> and assigned to heats. Changes after the deadline are not easy. The entry list is essentially final once submitted.</li>
+        <li>The meet runs <strong>approximately 7 hours</strong> from first arrival to last event. That is a long day for kids, coaches, and parents. Set expectations clearly before you go.</li>
+        <li>The <strong>coaches meeting is at 9:30 AM</strong>. Head coaches must attend. Confirm who is covering athletes while you are in the meeting.</li>
+        <li>Field events (10:00 AM) and running events (10:30 AM) run <strong>concurrently</strong> once things are in motion. You will have athletes in multiple places at once. This is the core coordination challenge of the day.</li>
+      </ul>
+
+      <div class="callout">
+        <strong>Set expectations with athletes:</strong> &ldquo;This is a real high school track meet. You&rsquo;ll be here for most of the day. Know your events, know when they are, and be ready when your name is called. Missing an event means you are scratched &mdash; no exceptions.&rdquo;
+      </div>
+    </div>
+
+    <!-- ── Day Timeline ──────────────────────────── -->
+    <div class="section">
+      <h2>Day Timeline (Coach View)</h2>
+      <p class="section-note">Plan your day around this. The window between first arrival and meet end is roughly 7 hours.</p>
+      <div class="timeline-compact">
+        <div class="tc-row">
+          <div class="tc-time">8:30 AM</div>
+          <div class="tc-event"><strong>Arrive &amp; Registration window opens</strong><br><span class="note">Registration appears to be for picking up camp setup materials and race packets. Athletes do not need to be here at 8:30 &mdash; see arrival note below.</span></div>
+        </div>
+        <div class="tc-row">
+          <div class="tc-time">9:00&ndash;9:30</div>
+          <div class="tc-event"><strong>Camp setup, warm-up</strong><br><span class="note">Get your tent up, lay out food and gear, begin warm-up rotation. Coaches stay present &mdash; athletes should not be wandering.</span></div>
+        </div>
+        <div class="tc-row">
+          <div class="tc-time">9:30 AM</div>
+          <div class="tc-event"><strong>Coaches meeting</strong><br><span class="note">Head coach goes. Assign a trusted adult to hold down the camp while you&rsquo;re away.</span></div>
+        </div>
+        <div class="tc-row">
+          <div class="tc-time">10:00 AM</div>
+          <div class="tc-event"><strong>Field events begin</strong> &mdash; Turbo Javelin, Long Jump, Shot Put, High Jump<br><span class="note">Order rotates: 4th/JV Girls &rarr; 4th/JV Boys &rarr; Varsity Girls &rarr; Varsity Boys. Know which athletes go in which group and when.</span></div>
+        </div>
+        <div class="tc-row">
+          <div class="tc-time">10:30 AM</div>
+          <div class="tc-event"><strong>Running events begin</strong> &mdash; Hurdles, 100m, 1600m, 4&times;100, 400m, 200m, 800m, 4&times;400<br><span class="note">Same division rotation. Concurrent with field events from here on.</span></div>
+        </div>
+        <div class="tc-row">
+          <div class="tc-time">10:30&ndash;3:30</div>
+          <div class="tc-event"><strong>Meet in progress</strong><br><span class="note">This is a 5-hour block. Food, water, shade, and warm layers matter. See gear checklist.</span></div>
+        </div>
+        <div class="tc-row">
+          <div class="tc-time">~3:30 PM</div>
+          <div class="tc-event"><strong>Meet ends</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Arrival Timing ──────────────────────────── -->
+    <div class="section">
+      <h2>Athlete Arrival Timing</h2>
+      <p class="section-note">In 2026 athletes arrived too early. Optimize this next year.</p>
+      <ul>
+        <li>Registration opens at 8:30 AM but athletes <strong>do not need to be there at 8:30</strong>. The meet does not start until 10:00.</li>
+        <li>Consider <strong>staggering arrival by first event</strong>. Athletes whose first event is a field event at 10:00 AM need to be warmed up and present by 9:45. Athletes whose first event is a later running event can arrive as late as 9:30.</li>
+        <li>The only fixed early obligation is the coaches meeting at 9:30. Coaches must be there; the full team does not.</li>
+        <li>Arriving too early means more idle time, more boredom, colder athletes, and more chaos managing the group before anything starts. A tighter arrival window is better for everyone.</li>
+      </ul>
+
+      <div class="callout tip">
+        <strong>Recommended approach:</strong> Send coaches and 1&ndash;2 parent volunteers at 8:30 to handle registration and camp setup. Athletes and remaining parents arrive 9:15&ndash;9:30. Brief them as a group before the coaches meeting.
+      </div>
+    </div>
+
+    <!-- ── Staffing ──────────────────────────────── -->
+    <div class="section">
+      <h2>Staffing: You Need More Adults</h2>
+      <p class="section-note">In 2026 we were understaffed. Target 6 adults minimum.</p>
+
+      <div class="callout warning">
+        <strong>This meet needs at least 6 adults.</strong> Field events and running events run at the same time with different athletes in different places. One coach cannot be in two places. Recruit aggressively before this meet.
+      </div>
+
+      <div class="staff-grid">
+        <div class="staff-role">
+          <h3>Head Coach (1)</h3>
+          <p>Attends coaches meeting at 9:30. Floats between field and track to handle escalations. Not responsible for shepherding individual athletes &mdash; that&rsquo;s the other adults&rsquo; job.</p>
+        </div>
+        <div class="staff-role">
+          <h3>Field Events Lead (1&ndash;2)</h3>
+          <p>Stationed at the field event area for the full morning. Knows the athlete roster and rotation order. Gets athletes to the right event site when called. Has a copy of the field event participant order.</p>
+        </div>
+        <div class="staff-role">
+          <h3>Track / Running Events Lead (1&ndash;2)</h3>
+          <p>Manages check-in at the 100m start line. Knows which athletes are in which heats. Handles relay baton handoff reminders. Keeps batons in hand and accounted for.</p>
+        </div>
+        <div class="staff-role">
+          <h3>Camp Manager (1)</h3>
+          <p>Holds down the tent. Manages food, water, and gear. Keeps non-competing athletes from wandering. Collects athletes coming off events and sends them to the right place next.</p>
+        </div>
+        <div class="staff-role">
+          <h3>Floater / Messenger (1)</h3>
+          <p>Moves between field events, track, and camp. Relays schedule updates. Alerts leads when an event is about to be called. Extremely valuable on a busy day.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Gear Checklist ────────────────────────── -->
+    <div class="section">
+      <h2>Gear &amp; Supplies Checklist</h2>
+      <p class="section-note">This is a 7-hour day. Pack accordingly. 2026 taught us what happens when you don&rsquo;t.</p>
+
+      <div class="gear-grid">
+        <div class="gear-card critical">
+          <h3>Batons (CRITICAL)</h3>
+          <p>Own at least 4. Check before leaving the school. Check again at the venue. Do not borrow. Do not assume someone else brought them. We almost missed a relay in 2026 because of this.</p>
+        </div>
+        <div class="gear-card important">
+          <h3>Tent</h3>
+          <p>In 2026 we had a flag. Next year bring a pop-up canopy tent &mdash; same one used for cross country works great. Shade matters when the meet goes until 3:30.</p>
+        </div>
+        <div class="gear-card important">
+          <h3>Food &amp; Snacks</h3>
+          <p>Substantial snacks for athletes and coaches. Think granola bars, fruit, crackers, PB&amp;J. A 7-hour day on a track requires real fuel &mdash; not just a bag of chips.</p>
+        </div>
+        <div class="gear-card important">
+          <h3>Water &amp; Drinks</h3>
+          <p>Multiple water bottles or a cooler with drinks. Athletes should be hydrating throughout the day, not just when they feel thirsty.</p>
+        </div>
+        <div class="gear-card standard">
+          <h3>Warm Layers</h3>
+          <p>April mornings in Wilmette are cold. Athletes will be sitting in between events for stretches of 1&ndash;2 hours. Bring extra layers even if the forecast looks okay.</p>
+        </div>
+        <div class="gear-card standard">
+          <h3>Sunscreen &amp; Shade</h3>
+          <p>By early afternoon the track gets full sun. Sunscreen for athletes and coaches. The tent handles this if you have one.</p>
+        </div>
+        <div class="gear-card standard">
+          <h3>Printed Schedules</h3>
+          <p>Print a personal schedule for every athlete listing their events and approximate times. Athletes who know their own schedule are dramatically easier to manage. See below.</p>
+        </div>
+        <div class="gear-card standard">
+          <h3>Field Event Order Sheet</h3>
+          <p>Obtain the order of participants within each field event at or before the coaches meeting. This is the key piece of information for coordinating who goes where and when.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Coordination: Field + Running ──────────── -->
+    <div class="section">
+      <h2>Coordinating Field &amp; Running Events</h2>
+      <p class="section-note">This was the hardest part of the day in 2026. Here&rsquo;s how to handle it next year.</p>
+      <ul>
+        <li>Field events and running events run <strong>at the same time</strong> starting around 10:00&ndash;10:30 AM. Athletes in both need to be in two places. This is manageable with the right systems.</li>
+        <li><strong>Get the field event participant order at the coaches meeting.</strong> Knowing that your athlete is 8th in line for long jump tells you exactly when they need to be there vs. when they can be at the track for their 100m heat. Without this, you&rsquo;re guessing.</li>
+        <li>Each athlete should have a <strong>paper schedule</strong> showing their events in time order. When they come off an event, they look at their sheet and know where to go next without needing to find a coach.</li>
+        <li>Assign one adult to field events and one to running events so there is always a point person at each location. The floater bridges the two.</li>
+      </ul>
+
+      <div class="callout tip">
+        <strong>Before the meet starts:</strong> Walk athletes through their personal schedule. For each athlete with events on both sides, identify the specific transition and tell them: &ldquo;After your long jump, walk straight to the 100m start line check-in. Your heat is approximately [time].&rdquo; Do not leave this to chance.
+      </div>
+
+      <div class="schedule-compare">
+        <div class="compare-col">
+          <h4>What we lacked in 2026</h4>
+          <ul>
+            <li>No field event participant order</li>
+            <li>Athletes didn&rsquo;t know when their field event slot was</li>
+            <li>Single coach trying to cover both areas</li>
+            <li>No personal schedules for athletes</li>
+            <li>Borrowed batons &mdash; almost missed relay</li>
+          </ul>
+        </div>
+        <div class="compare-col">
+          <h4>Target state for next year</h4>
+          <ul>
+            <li>Field event order obtained at coaches meeting</li>
+            <li>Personal schedule printout per athlete</li>
+            <li>Dedicated adult at field events + dedicated adult at track</li>
+            <li>Our own batons in the gear bag</li>
+            <li>Camp manager keeping idle athletes together</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Pre-Meet Athlete Briefing ──────────────── -->
+    <div class="section">
+      <h2>Pre-Meet Athlete Briefing</h2>
+      <p class="section-note">Run this as a group before field events start at 10:00. Budget 10 minutes.</p>
+      <div class="talking-points">
+
+        <div class="talking-point">
+          <div class="tp-icon">&#128203;</div>
+          <div class="tp-body">
+            <strong>You are registered &mdash; this is real</strong>
+            <p>Unlike some meets, your events are set in advance. You can&rsquo;t add an event the morning of the meet. Know what you&rsquo;re in, check your schedule sheet, and be ready when your event is called.</p>
+          </div>
+        </div>
+
+        <div class="talking-point">
+          <div class="tp-icon">&#9201;</div>
+          <div class="tp-body">
+            <strong>Missing your event = scratched, no exceptions</strong>
+            <p>This is a formally run meet. If you miss check-in for your event, you are out. Listen for announcements, watch the clock, and when in doubt check with a coach earlier rather than later.</p>
+          </div>
+        </div>
+
+        <div class="talking-point">
+          <div class="tp-icon">&#128210;</div>
+          <div class="tp-body">
+            <strong>Use your schedule sheet</strong>
+            <p>Every athlete gets a printed sheet showing their events in order. When you finish one event, check your sheet. It tells you where to go next. Don&rsquo;t lose it.</p>
+          </div>
+        </div>
+
+        <div class="talking-point">
+          <div class="tp-icon">&#127963;</div>
+          <div class="tp-body">
+            <strong>Stay at camp when you&rsquo;re not competing</strong>
+            <p>Come back to the tent after each event. Eat something, drink water, put on a layer. Don&rsquo;t wander. Coaches need to be able to find you quickly.</p>
+          </div>
+        </div>
+
+        <div class="talking-point">
+          <div class="tp-icon">&#127937;</div>
+          <div class="tp-body">
+            <strong>Cheer for your teammates</strong>
+            <p>You&rsquo;re going to have stretches of waiting. Use that time to watch your teammates compete and cheer them on. That matters.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Relay Notes ──────────────────────────────── -->
+    <div class="section">
+      <h2>Relay Notes</h2>
+      <p class="section-note">Relay-specific reminders given the formal nature of this meet.</p>
+      <ul>
+        <li>The <strong>4&times;100 relay</strong> is one of the most exciting events of the day and can fall apart fast. Walk through the baton exchange with your relay squad the morning of the meet &mdash; don&rsquo;t assume last week&rsquo;s practice is fresh in their heads.</li>
+        <li>Max 2 relay teams per school per division per gender for the 4&times;100. Max 1 team for the 4&times;400. Know your entries before you get there.</li>
+        <li><strong>Bring your own batons.</strong> This cannot be stated enough. (See the Critical section above.)</li>
+        <li>Confirm baton exchange zones with athletes on your personal schedule sheet. &ldquo;You run leg 2, you receive in zone 2 and hand off in zone 3&rdquo; &mdash; that clarity matters.</li>
+      </ul>
+    </div>
+
+    <!-- ── Parent Communication ────────────────────── -->
+    <div class="card parent-comm-card">
+      <h2>&#128226; What to Communicate to Parents</h2>
+      <ul class="info-list">
+        <li><strong>This is a long day.</strong> The meet runs from roughly 8:30 AM to 3:30 PM. Come prepared to be there for most of it, or plan around your athlete&rsquo;s specific events if you can&rsquo;t stay all day.</li>
+        <li><strong>No walk-up registration.</strong> Your athlete was registered in advance. If they missed the registration deadline they cannot compete. This is different from our other meets.</li>
+        <li><strong>Staggered arrival is okay.</strong> Athletes do not need to arrive at 8:30. Coaches will communicate a recommended arrival time based on your athlete&rsquo;s first event. Earlier is not better &mdash; it just means more waiting.</li>
+        <li><strong>Pack for a full day outdoors.</strong> Bring layers for the cold morning, sunscreen for the afternoon, plenty of food and water for your athlete. The meet does not provide meals.</li>
+        <li><strong>Missing an event means scratched &mdash; no exceptions.</strong> Make sure your athlete is listening for their name and knows to check in at the clerking area immediately when their event is called.</li>
+        <li><strong>Great facilities.</strong> Loyola is a beautiful high school track. This is a high-quality meet with real competition. Enjoy it &mdash; it&rsquo;s one of the highlights of the season.</li>
+        <li><strong>Spectators stay off the infield.</strong> Only coaches are permitted on the infield. Stay in the spectator area and finish line zone.</li>
+        <li><strong>No pets on campus.</strong></li>
+      </ul>
+    </div>
+
+    <!-- ── Year-Over-Year Notes ────────────────────── -->
+    <div class="section">
+      <h2>Year-Over-Year Notes</h2>
+      <p class="section-note">Things learned in 2026 to carry forward.</p>
+      <ul>
+        <li><strong>Get a tent.</strong> The same pop-up canopy used for cross country works for track. In 2026 we had a flag. A tent provides shade, a rally point, and a storage hub. Buy one and keep it in the track gear.</li>
+        <li><strong>Coordinate field event participant order early.</strong> This information is available at or before the coaches meeting. Having it is the difference between guessing and knowing when your athlete needs to be at their field event.</li>
+        <li><strong>6 adults is the right number.</strong> That means recruiting beyond the coaching staff. Ask parents well in advance &mdash; this meet competes with other Sunday plans.</li>
+        <li><strong>Athletes arrived too early in 2026.</strong> Consider staggering arrival by first event. Reduces idle time and makes the morning more manageable.</li>
+        <li><strong>A wonderful parent went out the morning of the 2026 meet to buy food and snacks.</strong> Next year have food and snacks prepared in advance &mdash; maybe pizza or something fun. It&rsquo;s a 7-hour day and a planned spread makes the day much better.</li>
+      </ul>
+    </div>
+
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
