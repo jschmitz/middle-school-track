@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coach Guide: New Trier Jr. High Meet &mdash; Vaders Track</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    .coach-badge {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.2rem 0.65rem;
+      border-radius: 2px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin-bottom: 0.6rem;
+    }
+
+    .callout {
+      border-left: 4px solid var(--accent);
+      background: #fffdf8;
+      padding: 0.875rem 1.1rem;
+      border-radius: 0 4px 4px 0;
+      margin: 0.75rem 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .callout strong {
+      color: var(--primary);
+    }
+
+    .callout.warning {
+      border-left-color: #c0392b;
+      background: #fff5f5;
+    }
+
+    .callout.tip {
+      border-left-color: var(--primary);
+      background: #f5f5ff;
+    }
+
+    .talking-points {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .talking-point {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .tp-icon {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      background: var(--primary-dark);
+      color: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      margin-top: 0.05rem;
+    }
+
+    .tp-body {
+      flex: 1;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.92rem;
+    }
+
+    .tp-body strong {
+      display: block;
+      color: var(--primary);
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .tp-body p {
+      margin: 0;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .gear-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .gear-card {
+      background: #f7f8fa;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .gear-card.critical {
+      border-top: 3px solid #c0392b;
+      background: #fff5f5;
+    }
+
+    .gear-card.important {
+      border-top: 3px solid var(--accent);
+      background: #fffdf5;
+    }
+
+    .gear-card.standard {
+      border-top: 3px solid var(--primary);
+    }
+
+    .gear-card h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+
+    .gear-card.critical h3 { color: #c0392b; }
+    .gear-card.important h3 { color: #a07000; }
+    .gear-card.standard h3 { color: var(--primary); }
+
+    .gear-card p {
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .staff-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .staff-role {
+      background: #f7f8fa;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 4px 4px 0;
+      padding: 0.875rem 1rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .staff-role h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+
+    .staff-role p {
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.875rem;
+      margin-top: 0.75rem;
+    }
+
+    .compare-table th {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      background: var(--primary-dark);
+      color: #fff;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .compare-table td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      line-height: 1.5;
+      vertical-align: top;
+    }
+
+    .compare-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .compare-table tr:nth-child(even) td {
+      background: #f7f8fa;
+    }
+
+    .timeline-compact {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 0.5rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .tc-row {
+      display: flex;
+      gap: 1rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    .tc-row:last-child {
+      border-bottom: none;
+    }
+
+    .tc-time {
+      flex-shrink: 0;
+      width: 6rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 0.82rem;
+      padding-top: 0.1rem;
+    }
+
+    .tc-event {
+      flex: 1;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .tc-event strong {
+      color: var(--primary);
+    }
+
+    .tc-event .note {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      font-style: italic;
+    }
+
+    .parent-comm-card {
+      border-top-color: var(--accent);
+      background: #fffdf8;
+    }
+
+    .parent-comm-card h2 {
+      color: var(--accent);
+      border-bottom-color: #f0e0c0;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="brand">Vaders Track</a>
+      <button class="nav-hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#schedule">Practice Schedule</a>
+        <a href="index.html#meets">Meet Schedule</a>
+        <a href="loyola-meet.html">Loyola Meet</a>
+        <a href="resources.html">Resources</a>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Practices <span class="nav-dropdown-arrow">&#9660;</span></button>
+          <div class="nav-dropdown-menu">
+            <a href="practice-1.html">Practice 1 &mdash; Welcome &amp; Baseline</a>
+            <a href="practice-2.html">Practice 2 &mdash; Skips &amp; Skills</a>
+            <a href="practice-3.html">Practice 3 &mdash; Starts &amp; Long Jump</a>
+            <a href="practice-4.html">Practice 4 &mdash; Distance Pacing</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="practice-header">
+      <div class="coach-badge">Coach Guide &mdash; Not for Distribution</div>
+      <h1>New Trier Jr. High Meet</h1>
+      <p class="practice-summary">This meet sits between Loyola and NBJH in formality &mdash; a weekday afternoon on a nice track with pre-registration, contained field events, and a finish time around 7&ndash;8 PM. Very manageable with three coaches.</p>
+    </div>
+
+    <!-- ── Meet Overview ──────────────────────────── -->
+    <div class="section">
+      <h2>Where This Meet Fits</h2>
+      <p class="section-note">Not as casual as NBJH, not as big as Loyola. Think of it as the middle ground.</p>
+
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>NBJH</th>
+            <th>New Trier Jr. High</th>
+            <th>Loyola</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Day &amp; length</strong></td>
+            <td>Weekday, ~2.5 hrs</td>
+            <td>Weekday, ~3&ndash;3.5 hrs</td>
+            <td>Sunday, ~7 hrs</td>
+          </tr>
+          <tr>
+            <td><strong>Registration</strong></td>
+            <td>Walk-up / day-of line</td>
+            <td>Pre-registered, no line</td>
+            <td>Pre-registered, formal</td>
+          </tr>
+          <tr>
+            <td><strong>Track</strong></td>
+            <td>Junior high</td>
+            <td>Nice track</td>
+            <td>Full high school track</td>
+          </tr>
+          <tr>
+            <td><strong>Field events</strong></td>
+            <td>Contained</td>
+            <td>Contained, organized</td>
+            <td>Spread across venue</td>
+          </tr>
+          <tr>
+            <td><strong>Adults needed</strong></td>
+            <td>2 works</td>
+            <td>3 is ideal</td>
+            <td>6 minimum</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout tip">
+        <strong>The big upside:</strong> Pre-registration means no standing in line like at NBJH. Athletes are already entered, field events are in one contained area, and the whole thing wraps up at a reasonable hour. This is a very coachable meet.
+      </div>
+    </div>
+
+    <!-- ── Day Timeline ──────────────────────────── -->
+    <div class="section">
+      <h2>Day Timeline (Coach View)</h2>
+      <p class="section-note">Weekday afternoon. Athletes are coming from school &mdash; plan accordingly.</p>
+      <div class="timeline-compact">
+        <div class="tc-row">
+          <div class="tc-time">4:30 PM</div>
+          <div class="tc-event"><strong>Arrive &amp; warm-up</strong><br><span class="note">Athletes coming straight from school. Have a clear arrival plan. Take roll, get everyone together, and start warm-up immediately.</span></div>
+        </div>
+        <div class="tc-row">
+          <div class="tc-time">Pre-meet</div>
+          <div class="tc-event"><strong>Athlete briefing</strong><br><span class="note">Run through events, order, where field events are, what to do when they finish. Point to the posted lineup. Budget 5&ndash;10 minutes.</span></div>
+        </div>
+        <div class="tc-row">
+          <div class="tc-time">Meet</div>
+          <div class="tc-event"><strong>Field &amp; running events</strong><br><span class="note">Field events are contained &mdash; one adult can cover the whole area. One adult on the track. Head coach floats.</span></div>
+        </div>
+        <div class="tc-row">
+          <div class="tc-time">7:00&ndash;8:00 PM</div>
+          <div class="tc-event"><strong>Meet ends</strong><br><span class="note">Communicate an estimated pickup time to parents before the meet so they&rsquo;re not waiting or arriving too early.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Staffing ──────────────────────────────── -->
+    <div class="section">
+      <h2>Staffing</h2>
+      <p class="section-note">Three adults is the sweet spot here.</p>
+
+      <div class="callout">
+        <strong>Three coaches makes this very manageable.</strong> Field events and running events happen concurrently. You need a point person at each location and someone who can float and redirect athletes coming off events. Two coaches can get through it but three removes the stress.
+      </div>
+
+      <div class="staff-grid">
+        <div class="staff-role">
+          <h3>Head Coach (1)</h3>
+          <p>Floats between field and track. Handles relay baton reminders, transitions, and any escalations. Not station-locked.</p>
+        </div>
+        <div class="staff-role">
+          <h3>Field Events Lead (1)</h3>
+          <p>Stays near the field event area. Field events are contained here &mdash; this is a much calmer role than at Loyola. Knows which athletes are up and gets them there on time.</p>
+        </div>
+        <div class="staff-role">
+          <h3>Track / Running Lead (1)</h3>
+          <p>Manages athletes at the track. Knows heats, keeps batons accounted for, handles check-in reminders.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Key Logistics ─────────────────────────── -->
+    <div class="section">
+      <h2>Key Logistics</h2>
+
+      <div class="callout tip">
+        <strong>Post a full lineup.</strong> Print a single sheet showing every event in order with the athletes in each. Tape it to a clipboard or post it somewhere visible. Athletes can check it themselves without tracking down a coach &mdash; this alone removes a lot of noise throughout the meet.
+      </div>
+
+      <div class="callout">
+        <strong>No registration line &mdash; use that time.</strong> Unlike NBJH, there is no walk-up line when you arrive. Athletes are already entered. Use the first 20&ndash;30 minutes for a proper warm-up and full group briefing before anything starts.
+      </div>
+
+      <div class="callout warning">
+        <strong>Confirm your roster before you go.</strong> Pre-registration means changes after the deadline are not easy. Verify every athlete is correctly entered at the last practice before the meet.
+      </div>
+    </div>
+
+    <!-- ── Gear Checklist ────────────────────────── -->
+    <div class="section">
+      <h2>Gear Checklist</h2>
+      <p class="section-note">Shorter meet, but the essentials still apply.</p>
+
+      <div class="gear-grid">
+        <div class="gear-card important">
+          <h3>Batons</h3>
+          <p>The venue had batons in 2026, but always bring your own &mdash; you need them for warm-up and you should never rely on borrowed equipment. Batons travel with the team, every meet.</p>
+        </div>
+        <div class="gear-card important">
+          <h3>Posted Lineup Sheet</h3>
+          <p>Print every event in order with athletes listed. Tape it somewhere athletes can read it without asking a coach. High value, low effort.</p>
+        </div>
+        <div class="gear-card standard">
+          <h3>Water</h3>
+          <p>Weekday, after school, active kids. Bring water bottles. Even for a 3-hour meet hydration matters.</p>
+        </div>
+        <div class="gear-card standard">
+          <h3>Snacks</h3>
+          <p>Athletes coming straight from school may not have eaten since lunch. Granola bars or fruit for a 4:30 PM start makes a difference.</p>
+        </div>
+        <div class="gear-card standard">
+          <h3>Layers</h3>
+          <p>May evenings cool off once the sun goes down. Athletes will be sitting between events &mdash; an extra layer in the bag is smart.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Pre-Meet Athlete Briefing ──────────────── -->
+    <div class="section">
+      <h2>Pre-Meet Athlete Briefing</h2>
+      <p class="section-note">Run this before the meet starts. Five minutes is enough.</p>
+      <div class="talking-points">
+
+        <div class="talking-point">
+          <div class="tp-icon">&#128203;</div>
+          <div class="tp-body">
+            <strong>You&rsquo;re already registered &mdash; know your events</strong>
+            <p>Your events were submitted in advance. Check the lineup sheet, know what you&rsquo;re in, and be ready when your event is called. You can&rsquo;t add events the day of.</p>
+          </div>
+        </div>
+
+        <div class="talking-point">
+          <div class="tp-icon">&#128210;</div>
+          <div class="tp-body">
+            <strong>Use the posted lineup</strong>
+            <p>There&rsquo;s a printed schedule showing every event in order. Check it when you finish something. It tells you what&rsquo;s next without needing to find a coach.</p>
+          </div>
+        </div>
+
+        <div class="talking-point">
+          <div class="tp-icon">&#9201;</div>
+          <div class="tp-body">
+            <strong>Don&rsquo;t miss your event</strong>
+            <p>Missing check-in means you are scratched. Listen for announcements and when in doubt, check in early.</p>
+          </div>
+        </div>
+
+        <div class="talking-point">
+          <div class="tp-icon">&#127937;</div>
+          <div class="tp-body">
+            <strong>Cheer for your teammates</strong>
+            <p>Between events, get near the track or field events and cheer. That energy matters.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Parent Communication ────────────────────── -->
+    <div class="card parent-comm-card">
+      <h2>&#128226; What to Communicate to Parents</h2>
+      <ul class="info-list">
+        <li><strong>Weekday meet, reasonable hours.</strong> Starts at 4:30 PM, wraps up around 7:00&ndash;8:00 PM. Much shorter than Loyola. Pickup time will be communicated once the schedule is clearer.</li>
+        <li><strong>Pre-registered &mdash; no line.</strong> Athletes are already entered. No walk-up registration or line to deal with on arrival.</li>
+        <li><strong>Coming from school.</strong> If your athlete is coming straight from school, make sure they have eaten something and have water before they arrive.</li>
+        <li><strong>Missing an event = scratched.</strong> Make sure your athlete knows their events and is listening for announcements.</li>
+        <li><strong>Nice venue.</strong> Well-run meet on a good track. A great way to close out the season.</li>
+      </ul>
+    </div>
+
+    <!-- ── Year-Over-Year Notes ────────────────────── -->
+    <div class="section">
+      <h2>Year-Over-Year Notes</h2>
+      <p class="section-note">Things to carry forward from 2026.</p>
+      <ul>
+        <li><strong>Post a full lineup.</strong> A single sheet showing every event in order with athletes listed is one of the highest-value things you can bring. Athletes self-direct, coaches stay focused on transitions.</li>
+        <li><strong>Always bring batons.</strong> The venue had them in 2026, but bring your own anyway &mdash; for warm-up, for backup, and because the rule is batons always travel with the team.</li>
+        <li><strong>Three coaches makes this smooth.</strong> Field events are contained so you don&rsquo;t need Loyola-level staffing, but one adult per zone (field, track, float) keeps everything running cleanly.</li>
+        <li><strong>No registration line is a real advantage.</strong> Use that time for warm-up and a proper group briefing instead of wasting it standing in line.</li>
+        <li><strong>Tell parents the pickup window in advance.</strong> A 4:30 start finishing at 7&ndash;8 can catch families off guard if they don&rsquo;t know to plan for it.</li>
+      </ul>
+    </div>
+
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
