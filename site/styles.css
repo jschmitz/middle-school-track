@@ -882,6 +882,47 @@ ul {
   margin-top: 0.25rem;
 }
 
+/* ─── Coach cards ────────────────────────────────────── */
+.coach-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.coach-card {
+  background: #f7f8fa;
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--primary);
+  border-radius: 4px;
+  padding: 1.25rem;
+}
+
+.coach-card .coach-icon {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.coach-card h3 {
+  color: var(--primary);
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+}
+
+.coach-card p {
+  font-size: 0.88rem;
+  color: var(--text);
+  line-height: 1.55;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  margin: 0;
+}
+
+/* ─── Table scroll wrapper ────────────────────────────── */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* ─── Mobile ──────────────────────────────────────────── */
 @media (max-width: 640px) {
   nav {
