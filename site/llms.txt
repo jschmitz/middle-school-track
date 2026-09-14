@@ -1,0 +1,18 @@
+# Vaders Cross Country
+
+Vaders XC is a middle school cross country team made up of athletes from St. Norbert School (SNS) and Sacred Heart School in Northbrook, IL. The program is volunteer-coached and runs in the fall season.
+
+## Key facts
+- Practice days: Wednesdays and Fridays, 5:00–6:00 PM
+- Meet location: St. Norbert School gym lobby, then Village Green Park across the street
+- Coaches: Jake Schmitz (SNS dad) and Dana Macke (SNS mom)
+- Season: Late August through mid–late October
+- Schedule app: TeamSnap (invites sent by Drew Swanson, Sacred Heart AD)
+
+## Pages
+- / — Season overview, announcements, practice schedule, meet schedule, coach info
+- /resources.html — Dynamic warm-up drills, skips, core exercises for athletes
+- /xc-practice-1.html — Practice 1: Welcome session and baseline mile time trial (August 19)
+- /xc-practice-2.html — Practice 2: Interval repeats around the baseball field at Village Green (August 21)
+- /xc-practice-3.html — Practice 3: Village Green loops with water breaks at the baseball field (August 26)
+- /xc-practice-4.html — Practice 4: Village Green loops with cone drill breaks at the baseball field (August 29)
